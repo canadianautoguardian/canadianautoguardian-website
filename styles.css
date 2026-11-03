@@ -355,3 +355,22 @@ h2.slogan { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.2; }
 .field-error { display: none; margin-top: 6px; font-size: .85rem; line-height: 1.4; color: #FF8A8A; }
 .field input.is-invalid { border-color: #D86A6A; box-shadow: 0 0 0 1px #D86A6A; }
 .page-hero p.warranty-line .warranty-term { color: var(--aqua); font-weight: 600; }
+
+/* Logo without the shield: larger CAG, stripes matched to the lettering */
+.wm-cag { font-size: 2.6rem; }
+.wm-stripes { gap: 4px; padding-left: 1px; }
+.wm-stripes i { width: 35.5px; }
+@media (max-width: 560px) {
+  .wm-cag { font-size: 2.1rem; }
+  .wm-stripes i { width: 28.0px; }
+}
+
+/* Slogan fitted to the exact width of CAG */
+.wm-cag { font-size: 53.9px; }
+.wm-stripes i { width: 47.0px; }
+.wm-name.wm-slogan { font-size: 11px; }
+@media (max-width: 560px) {
+  .wm-cag { font-size: 49px; }
+  .wm-stripes i { width: 42.4px; }
+  .wm-name.wm-slogan { font-size: 10px; }
+}
