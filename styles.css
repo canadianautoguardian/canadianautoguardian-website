@@ -345,3 +345,6 @@ h2.slogan { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.2; }
 
 /* Slogan under the footer logo */
 .footer-slogan { margin: 14px 0 0; color: var(--silver); font-size: 1.05rem; }
+
+/* Slogan under the CAG logo (replaces the full name) */
+.wm-name.wm-slogan { font-family: 'Poppins', sans-serif; font-style: italic; font-weight: 400; font-stretch: normal; font-size: .72rem; letter-spacing: 0; text-transform: none; color: var(--text-soft); }
