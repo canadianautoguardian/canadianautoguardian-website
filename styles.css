@@ -348,3 +348,7 @@ h2.slogan { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.2; }
 
 /* Slogan under the CAG logo (replaces the full name) */
 .wm-name.wm-slogan { font-family: 'Poppins', sans-serif; font-style: italic; font-weight: 400; font-stretch: normal; font-size: .72rem; letter-spacing: 0; text-transform: none; color: var(--text-soft); }
+
+/* Small helper text under a form field */
+.field-hint { display: block; margin-top: 6px; font-size: .8rem; line-height: 1.4; color: var(--text-soft); }
+#vin { text-transform: uppercase; letter-spacing: .04em; }
