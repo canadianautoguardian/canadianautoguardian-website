@@ -324,3 +324,21 @@ h2.slogan { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.2; }
 .form-success { background: rgba(0, 195, 227, .10); border: 1px solid var(--aqua); color: var(--text); }
 .form-error { background: rgba(220, 80, 80, .12); border: 1px solid #D86A6A; color: var(--text); }
 .form-error a { color: var(--text); text-decoration: underline; }
+
+/* Phones and tablets: page links always visible under the logo (no menu button) */
+@media (max-width: 900px) {
+  .nav { flex-wrap: wrap; row-gap: 10px; }
+  .nav-toggle { display: none !important; }
+  .nav-links, .nav-links.is-open {
+    display: flex; position: static; order: 3; flex-basis: 100%;
+    flex-direction: row; justify-content: space-between; gap: 6px;
+    background: none; border: 0; border-top: 1px solid var(--line);
+    padding: 10px 0 0; margin: 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links li, .nav-links li:first-child { border-top: 0; flex-shrink: 0; }
+  .nav-links a { display: inline-block; padding: 6px 2px; font-size: .9rem; border-bottom: 2px solid transparent !important; }
+  .nav-links a[aria-current="page"] { color: var(--text); border-bottom-color: var(--aqua) !important; }
+}
+@media (max-width: 360px) { .nav-links a { font-size: .82rem; } }
