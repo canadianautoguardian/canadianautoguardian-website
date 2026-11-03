@@ -352,3 +352,6 @@ h2.slogan { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.2; }
 /* Small helper text under a form field */
 .field-hint { display: block; margin-top: 6px; font-size: .8rem; line-height: 1.4; color: var(--text-soft); }
 #vin { text-transform: uppercase; letter-spacing: .04em; }
+.field-error { display: none; margin-top: 6px; font-size: .85rem; line-height: 1.4; color: #FF8A8A; }
+.field input.is-invalid { border-color: #D86A6A; box-shadow: 0 0 0 1px #D86A6A; }
+.page-hero p.warranty-line { color: var(--aqua); font-weight: 500; }

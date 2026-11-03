@@ -87,22 +87,23 @@
     <form class="contact-form" id="booking-form" action="https://api.web3forms.com/submit" method="POST">
       <input type="hidden" name="access_key" value="fca52bb0-e414-491a-8b24-04d56512261c">
       <input type="hidden" name="from_name" value="Canadian Auto Guardian website">
-      <div class="field"><label for="name">Your name</label><input type="text" id="name" name="name" autocomplete="name" required></div>
+      <div class="field"><label for="name">Your Name</label><input type="text" id="name" name="name" autocomplete="name" required></div>
       <div class="field"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" autocomplete="tel" required></div>
       <div class="field full"><label for="email">Email</label><input type="email" id="email" name="email" autocomplete="email" required></div>
-      <div class="field"><label for="vehicle">Vehicle (year, make, model)</label><input type="text" id="vehicle" name="vehicle" placeholder="e.g. 2019 Honda Civic"></div>
-      <div class="field"><label for="vin">VIN (optional)</label><input type="text" id="vin" name="vin" maxlength="17" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="17 characters" pattern="[A-HJ-NPR-Za-hj-npr-z0-9]{17}" title="A VIN is 17 letters and numbers (no I, O or Q)"><span class="field-hint">On your ownership, insurance slip, or the driver's side of the dashboard.</span></div>
-      <div class="field"><label for="service">What do you need?</label>
+      <div class="field"><label for="vehicle">Vehicle (Year, Make, Model)</label><input type="text" id="vehicle" name="vehicle" placeholder="e.g. 2019 Honda Civic"></div>
+      <div class="field"><label for="vin">V.I.N.</label><input type="text" id="vin" name="vin" maxlength="17" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="17 characters" aria-describedby="vin-hint vin-error"><span class="field-hint" id="vin-hint">On your ownership, insurance slip, or the driver's side of the dashboard.</span><span class="field-error" id="vin-error" role="alert"></span></div>
+      <div class="field"><label for="service">What Do You Need?</label>
         <select id="service" name="service"><option value="">Choose one</option><option>Engine oil changes</option><option>Brake pads & rotor replacement</option><option>Tune-ups</option><option>Engine repairs</option><option>Driveline servicing</option><option>Diagnosing</option><option>Detailing</option><option>A/C repairs</option><option>Insurance claim repair</option><option>Not sure / other</option></select></div>
-      <div class="field"><label for="date">Preferred date</label><input type="date" id="date" name="preferred_date"></div>
-      <div class="field"><label for="claim">Insurance claim? (optional)</label>
+      <div class="field"><label for="date">Preferred Date</label><input type="date" id="date" name="preferred_date"></div>
+      <div class="field"><label for="claim">Insurance Claim? (Optional)</label>
         <select id="claim" name="insurance_claim"><option value="">—</option><option>Yes</option><option>No</option></select></div>
-      <div class="field full"><label for="message">Tell us what's going on</label><textarea id="message" name="message" required placeholder="Noises, warning lights, damage, or anything else we should know."></textarea></div>
+      <div class="field full"><label for="message">How Can We Help?</label><textarea id="message" name="message" required placeholder="Noises, warning lights, damage, or anything else we should know."></textarea></div>
       <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="subject" value="New appointment request - Canadian Auto Guardian website">
       <div class="field full"><button type="submit" class="btn btn-primary" id="booking-submit">Send request</button></div>
       <p class="form-note">This is a request, not a confirmed booking. We'll contact you to confirm a time.</p>
       <p class="form-msg form-success" id="booking-success" role="status">Thanks, your request has been sent. We'll be in touch soon to confirm a time.</p>
+      <p class="form-msg form-error" id="booking-vin-error" role="alert">Your request was not sent. Please fill out your vehicle's V.I.N. above, then press Send request again.</p>
       <p class="form-msg form-error" id="booking-error" role="alert">Something went wrong sending your request. Please try again, or call us at <a href="tel:+18777663457">1-877-766-3457</a>.</p>
     </form>
     <script>
@@ -112,9 +113,25 @@
       var ok = document.getElementById('booking-success');
       var err = document.getElementById('booking-error');
       var btn = document.getElementById('booking-submit');
+      document.getElementById('vin').addEventListener('input', function () {
+        this.classList.remove('is-invalid'); document.getElementById('vin-error').style.display = 'none';
+        document.getElementById('booking-vin-error').style.display = 'none';
+      });
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         ok.style.display = 'none'; err.style.display = 'none';
+        var vin = document.getElementById('vin'), vinErr = document.getElementById('vin-error'), vinMsg = document.getElementById('booking-vin-error');
+        vin.value = vin.value.replace(/\s+/g, '').toUpperCase();
+        var problem = '';
+        if (!vin.value) problem = 'Please enter your V.I.N.';
+        else if (!/^[A-HJ-NPR-Z0-9]{17}$/.test(vin.value)) problem = 'A V.I.N. is 17 letters and numbers (no I, O or Q). Please check it and try again.';
+        if (problem) {
+          vinErr.textContent = problem; vinErr.style.display = 'block';
+          vin.classList.add('is-invalid'); vinMsg.style.display = 'block';
+          vin.focus({preventScroll: true}); vin.scrollIntoView({behavior: 'smooth', block: 'center'});
+          return;
+        }
+        vinErr.style.display = 'none'; vin.classList.remove('is-invalid'); vinMsg.style.display = 'none';
         btn.disabled = true; btn.textContent = 'Sending...';
         fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
           .then(function (r) { return r.json(); })
