@@ -378,3 +378,7 @@ h2.slogan { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.2; }
 /* Call and appointment buttons in the brand blue (aqua) */
 .btn-primary { background: var(--aqua); color: #0B1A1F; }
 .btn-primary:hover { background: #4FD6EC; }
+
+/* Call buttons: chrome silver with black text, next to the aqua appointment buttons */
+.btn-silver { background: var(--silver); color: #111316; }
+.btn-silver:hover { background: #F1F3F5; }
