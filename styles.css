@@ -374,3 +374,7 @@ h2.slogan { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.2; }
   .wm-stripes i { width: 42.4px; }
   .wm-name.wm-slogan { font-size: 10px; }
 }
+
+/* Call and appointment buttons in the brand blue (aqua) */
+.btn-primary { background: var(--aqua); color: #0B1A1F; }
+.btn-primary:hover { background: #4FD6EC; }
